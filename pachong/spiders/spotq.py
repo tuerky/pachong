@@ -19,7 +19,7 @@ class NgaSpider(scrapy.Spider):
 
     def start_requests(self):
         urlforword = self.start_urls[0][25:]
-        for i in range(500,502): #设定图片数量限制
+        for i in range(500,1000): #设定图片数量限制
           url = self.host + ('/page/%d'%(int(urlforword)+i))
           yield Request(url=url, callback=self.parse)
 
@@ -35,12 +35,12 @@ class NgaSpider(scrapy.Spider):
             #print('href:'+ href[0][1:])
             imgcon = img_list[n]
             #print(imgcon)
-            os.mkdir("D:/spiderpic/%s" % href[0][1:])
+            os.mkdir("/spiderdata/%s" % href[0][1:])
             file = urllib.request.urlopen(imgcon)
             #conbtye = content.encode()
             #temp = file.read()
             image = Image.open(file)
-            image.save('D:/spiderpic/%s/%s%d封面图.png'%(href[0][1:],nowTime,n)) #格式化入参只提供一个%
+            image.save('/spiderdata/%s/%s%d封面图.png'%(href[0][1:],nowTime,n)) #格式化入参只提供一个%
             url = self.host + href[0]
             yield Request(url=url,meta={'href':href[0][1:]},callback=self.parse_dl)#参数集合可以用meta=完成
 
@@ -55,7 +55,7 @@ class NgaSpider(scrapy.Spider):
             #print('m:'+ str(m))
             fd = urllib.request.urlopen(con)
             image = Image.open(fd)
-            image.save('D:/spiderpic/%s/%s%d内容图.png' % (dirname, nowTimes, m))
+            image.save('/spiderdata/%s/%s%d内容图.png' % (dirname, nowTimes, m))
 
 
 

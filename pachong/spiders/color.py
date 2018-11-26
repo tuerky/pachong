@@ -17,6 +17,5 @@ class bcolors:
         self.ENDC = ''
 
 
-
 print(bcolors.HEADER + "Warning: No active frommets remain. Continue?"
 + bcolors.ENDC)

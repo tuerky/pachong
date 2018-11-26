@@ -8,7 +8,7 @@ import pymysql.cursors
 from decimal import Decimal
 
 
-class doubanPipeline(object):
+'''class doubanPipeline(object):
     def process_item(self, item,douban_moviestar):
         title = item['title']
         img = item['img']
@@ -21,11 +21,29 @@ class doubanPipeline(object):
         starring = item['starring']
         connection = pymysql.connect(host = '127.0.0.1',user = 'root',password = '123456',port = 3306,db = 'mysql',charset = 'utf8')
         cursor = connection.cursor()
-        sql = 'insert into `douban_moviestar` values("0","%s","%s","%s","%s","%s","%.1f","%s")'%(title,img,director,type,country,source,starring)
+        sql = 'insert into `swapi_moviestar` values("0","%s","%s","%s","%s","%s","%.1f","%s")'%(title,img,director,type,country,source,starring)#decimal(2,1)
         print('ok')
         cursor.execute(sql) #执行sql
         cursor.close()
         connection.commit()
         print('成功插入一条数据')
-        connection.close()
+        connection.close()'''
 
+class musicPipeline(object):
+    def process_item(self, item, music_info):
+        title = item['title']
+        pic_url = item['pic_url']
+        singer = item['singer']
+        album = item['album']
+        song_id = item['song_id']
+        lyric = item['lyric']
+
+        connection = pymysql.connect(host='127.0.0.1', user='root', password='123456', port=3306, db='mysql', charset='utf8')
+        cursor = connection.cursor()
+        sql = 'INSERT INTO `music_newest` VALUES ("0","%s","%s","%s","%s","%s","%s",NOW(),NOW())' % (title, pic_url, singer, album, song_id, lyric)
+        print('ok')
+        cursor.execute(sql)  # 执行sql
+        cursor.close()
+        connection.commit()
+        print('成功插入一条数据')
+        connection.close()
